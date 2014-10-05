@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -56,7 +57,8 @@ public class MyActivity extends Activity {
     //See: http://developer.android.com/reference/android/speech/SpeechRecognizer.html
     final int SPEECH_REQUEST = 0;
     private void displaySpeechRecognizer() {
-        String prompt = "What word or phrase \nwould you like to translate?"; //Add newline tp help format text and not display over speech prompt
+        //String prompt = "What word or phrase \nwould you like to translate?"; //Add newline tp help format text and not display over speech prompt
+        String prompt = "Translate to (say language \nthen phrase to translate)";
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         // http://developer.android.com/reference/android/speech/RecognizerIntent.html#EXTRA_PROMPT
         intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 10000);
@@ -113,15 +115,31 @@ public class MyActivity extends Activity {
             BufferedReader reader = null;
 
             String spokenText = params[0];
-
             Log.v(TAG, "Spoken Text: " + spokenText);
+            /*
+            Get first word to use as language tag in web service call
+             */
+            String [] allWords = spokenText.split("[\\W]");
+            String language = allWords[0];
+            int offset = 1;
+            String [] allButFirstWord = Arrays.copyOfRange(allWords,offset,allWords.length);
+            //String textToTranslate = allButFirstWord.toString();
+            StringBuilder builder = new StringBuilder();
+            for(String s : allButFirstWord) {
+                builder.append(s+' ');
+            }
+            String textToTranslate = builder.toString();
+            Log.v(TAG,"First word: "+language);
+            Log.v(TAG, "Text to translate: "+textToTranslate);
+
+
             final String KEY_PARAM ="key";
             final String API_KEY = "AIzaSyBOb_kV7YV9atkfYZrlkwNx54MRbCxEUGg";
             final String QUERY_PARAM = "q";
             final String SOURCE_PARAM = "source";
             final String SOURCE = "en";
             final String TARGET_PARAM = "target";
-            final String TARGET = "es";
+            final String TARGET = "es"; //es for Spanish
             String results = null;
 
             try {
@@ -130,7 +148,8 @@ public class MyActivity extends Activity {
                 //https://www.googleapis.com/language/translate/v2?key=AIzaSyBOb_kV7YV9atkfYZrlkwNx54MRbCxEUGg&q=hello%20world&source=en&target=es
                 Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                         .appendQueryParameter(KEY_PARAM, API_KEY)
-                        .appendQueryParameter(QUERY_PARAM, spokenText)
+                        //.appendQueryParameter(QUERY_PARAM, spokenText)
+                        .appendQueryParameter(QUERY_PARAM, textToTranslate)
                         .appendQueryParameter(SOURCE_PARAM, SOURCE)
                         .appendQueryParameter(TARGET_PARAM, TARGET)
                         .build();
