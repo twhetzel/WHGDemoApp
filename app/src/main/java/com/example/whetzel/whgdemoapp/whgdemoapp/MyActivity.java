@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.content.Context;
@@ -129,7 +130,53 @@ public class MyActivity extends Activity {
                 builder.append(s+' ');
             }
             String textToTranslate = builder.toString();
+
             Log.v(TAG,"First word: "+language);
+            // Get language code based on language mentioned by user
+            // Add check to make sure a match exists
+            ArrayMap<String,String> languageMap = new ArrayMap();
+            languageMap.put("Afrikaans","af");
+            languageMap.put("Albanian","sq");
+            languageMap.put("Arabic","ar");
+            languageMap.put("Azerbaijani","az");
+            languageMap.put("Basque","eu");
+            languageMap.put("Bengali","bn");
+            languageMap.put("Belarusian","be");
+            languageMap.put("Bulgarian","bg");
+            languageMap.put("Catalan","ca");
+            languageMap.put("Chinese","zh-TW");
+            languageMap.put("Croatian","hr");
+            languageMap.put("Czech","cs");
+            languageMap.put("Danish","da");
+            languageMap.put("Dutch","nl");
+            languageMap.put("Esperanto","eo");
+            languageMap.put("Estonian","et");
+            languageMap.put("Filipino","tl");
+            languageMap.put("Finnish","fi");
+            languageMap.put("French","fr");
+            languageMap.put("Galician","gl");
+            languageMap.put("Georgian","ka");
+            languageMap.put("German","de");
+            languageMap.put("Greek","el");
+            languageMap.put("Gujarati","gu");
+            languageMap.put("Haitian","ht");
+            languageMap.put("Hebrew","iw");
+            languageMap.put("Hindi","hi");
+            languageMap.put("Hungarian","hu");
+
+            languageMap.put("Spanish","es");
+
+
+            // TODO Create method to get language tag outside of this section
+            //String language_tag = getLanguageTag(language);
+
+            // Test - get language tag
+            String language_tag = languageMap.get(language);
+            Log.v(TAG, "LanguageMap: "+language_tag);
+
+
+
+
             Log.v(TAG, "Text to translate: "+textToTranslate);
 
 
@@ -139,7 +186,8 @@ public class MyActivity extends Activity {
             final String SOURCE_PARAM = "source";
             final String SOURCE = "en";
             final String TARGET_PARAM = "target";
-            final String TARGET = "es"; //es for Spanish
+            //final String TARGET = "es"; //es for Spanish
+            final String TARGET = language_tag; //dynamic language tag from user voice input
             String results = null;
 
             try {
@@ -218,6 +266,10 @@ public class MyActivity extends Activity {
             processValue(result);
         }
     }
+
+
+
+
 
     private void getValue()
     {
