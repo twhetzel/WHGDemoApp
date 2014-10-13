@@ -149,6 +149,7 @@ public class MyActivity extends Activity {
             languageMap.put("Czech","cs");
             languageMap.put("Danish","da");
             languageMap.put("Dutch","nl");
+            languageMap.put("English","en");
             languageMap.put("Esperanto","eo");
             languageMap.put("Estonian","et");
             languageMap.put("Filipino","tl");
@@ -161,9 +162,29 @@ public class MyActivity extends Activity {
             languageMap.put("Gujarati","gu");
             languageMap.put("Haitian","ht");
             languageMap.put("Hebrew","iw");
-            languageMap.put("Hindi","hi");
+            //languageMap.put("Hindi","hi"); //characters are not displayed correctly
             languageMap.put("Hungarian","hu");
-
+            languageMap.put("Icelandic","is");
+            languageMap.put("Indonesian","id");
+            languageMap.put("Irish","ga");
+            languageMap.put("Italian","it");
+            languageMap.put("Japanese","ja");
+            languageMap.put("Kannada","kn");
+            languageMap.put("Korean","ko");
+            languageMap.put("Latin","la");
+            languageMap.put("Norwegian","no");
+            languageMap.put("Persian","fa");
+            languageMap.put("Polish","pl");
+            languageMap.put("Portuguese","pt");
+            languageMap.put("Romanian","ro");
+            languageMap.put("Russian","ru");
+            languageMap.put("Swahili","sw");
+            languageMap.put("Swedish","sv");
+            languageMap.put("Thai","th");
+            languageMap.put("Turkish","tr");
+            languageMap.put("Ukrainian","uk");
+            languageMap.put("Vietnamese","vi");
+            languageMap.put("Yiddish","yi");
             languageMap.put("Spanish","es");
 
 
