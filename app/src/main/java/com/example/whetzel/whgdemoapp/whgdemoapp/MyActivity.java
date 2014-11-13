@@ -76,7 +76,7 @@ public class MyActivity extends Activity {
 
             String spokenText = results.get(0);
             Log.d(TAG, "Speech Input: " + spokenText);
-            //Call AsyncTask, TODO: change to SyncAdapter
+            //Call AsyncTask
             if (null == translate || translate.isCancelled()) {
                 translate = new TranslateTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, spokenText);
             }
@@ -149,7 +149,7 @@ public class MyActivity extends Activity {
             languageMap.put("Czech","cs");
             languageMap.put("Danish","da");
             languageMap.put("Dutch","nl");
-            languageMap.put("English","en");
+            //languageMap.put("English","en"); //Can't use since source is coded as 'en' 11-12-2014
             languageMap.put("Esperanto","eo");
             languageMap.put("Estonian","et");
             languageMap.put("Filipino","tl");
@@ -195,11 +195,7 @@ public class MyActivity extends Activity {
             String language_tag = languageMap.get(language);
             Log.v(TAG, "LanguageMap: "+language_tag);
 
-
-
-
             Log.v(TAG, "Text to translate: "+textToTranslate);
-
 
             final String KEY_PARAM ="key";
             final String API_KEY = "AIzaSyBOb_kV7YV9atkfYZrlkwNx54MRbCxEUGg";
@@ -287,9 +283,6 @@ public class MyActivity extends Activity {
             processValue(result);
         }
     }
-
-
-
 
 
     private void getValue()
